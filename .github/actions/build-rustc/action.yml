@@ -1,0 +1,21 @@
+name: Build rustc
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v2
+      with:
+        repository: hkmatsumoto/rust
+        ref: roogle
+        path: rust
+        fetch-depth: 50
+    - name: Set `config.toml`
+      working-directory: rust
+      shell: bash
+      run: |
+        patch < ../roogle-index/ci/config.toml.patch
+        mv config.toml.example config.toml
+    - name: Build rustc and rustdoc
+      working-directory: rust
+      shell: bash
+      run: |
+        ./x.py build --stage 1
