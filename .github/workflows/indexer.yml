@@ -19,12 +19,11 @@ jobs:
       - name: Index libstd crates
         run: ../roogle-index/ci/scripts/libstd.sh
         working-directory: rust
-      - run: |
-          git config user.name "Melchior 1"
-          git config user.email "actions@github.com"
-          git add .
-          git commit -m "libstd: Weekly update"
-        working-directory: roogle-index
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          repository: roogle-index
+          commit_message: "libstd: Weekly update"
+          commit_user_name: "Melchior 1"
   rustc:
     runs-on: ubuntu-latest
     steps:
@@ -39,9 +38,8 @@ jobs:
       - name: Index rustc crates
         run: ../roogle-index/ci/scripts/rustc.py
         working-directory: rust
-      - run: |
-          git config user.name "Balthasar 2"
-          git config user.email "actions@github.com"
-          git add .
-          git commit -m "rustc: Weekly update"
-        working-directory: roogle-index
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          repository: roogle-index
+          commit_message: "rustc: Weekly update"
+          commit_user_name: "Balthasar 2"

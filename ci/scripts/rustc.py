@@ -10,12 +10,12 @@ subprocess.run(["./x.py", "doc", "compiler", "--stage", "1"])
 
 crates = []
 jsons = glob.glob("build/x86_64-unknown-linux-gnu/compiler-doc/*.json")
-for json in jsons:
-    json = basename(json)
-    crates.append(splitext(json)[0])
+for json_path in jsons:
+    json_name = basename(json_path)
+    crates.append(splitext(json_name)[0])
     subprocess.run([
         "mv",
-        f"build/x86_64-unknown-linux-gnu/compiler-doc/{json}",
+        f"build/x86_64-unknown-linux-gnu/compiler-doc/{json_name}",
         "../roogle-index/crate"
     ])
 
