@@ -2,7 +2,7 @@ name: Indexer
 
 on:
   schedule:
-    - cron: '* * * * SUN'
+    - cron: '* 0 * * SUN'
 
 jobs:
   libstd:
