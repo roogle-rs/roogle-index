@@ -1,11 +1,11 @@
 --- config.toml.example	2021-10-23 22:06:51.532827501 +0900
-+++ config.toml	2021-10-12 00:24:33.548837981 +0900
++++ config.toml.example	2021-10-12 00:24:33.548837981 +0900
 @@ -23,7 +23,7 @@
  #
  # See `src/bootstrap/defaults` for more information.
  # Note that this has no default value (x.py uses the defaults in `config.toml.example`).
 -#profile = <none>
-+profile = "compiler"
++profile = "tools"
  
  # =============================================================================
  # Tweaking how LLVM is compiled
