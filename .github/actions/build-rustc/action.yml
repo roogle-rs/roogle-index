@@ -1,4 +1,4 @@
-name: Build rustc
+name: Build rustdoc
 runs:
   using: "composite"
   steps:
@@ -12,10 +12,9 @@ runs:
       working-directory: rust
       shell: bash
       run: |
-        patch < ../roogle-index/ci/config.toml.patch
+        patch < ../config.toml.patch
         mv config.toml.example config.toml
-    - name: Build rustc and rustdoc
+    - name: Build rustdoc
       working-directory: rust
       shell: bash
-      run: |
-        ./x.py build --stage 1
+      run: ./x.py build src/librustdoc
