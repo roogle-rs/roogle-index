@@ -27,9 +27,6 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "libstd: Weekly update"
-          commit_user_name: "Melchior 1"
-          commit_user_email: "github-actions[bot]@users.noreply.github.com"
-          commit_author: "Melchior 1 <melchior@exmaple.com>"
   rustc:
     runs-on: ubuntu-latest
     steps:
@@ -52,6 +49,22 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "rustc: Weekly update"
-          commit_user_name: "Balthasar 2"
-          commit_user_email: "github-actions[bot]@users.noreply.github.com"
-          commit_author: "Balthasar 2 <balthasar@exmaple.com>"
+  crates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: nightly
+      - uses: actions-rs/cargo@v1
+        with:
+          command: install
+          args: --path indexer
+      - name: Index third-party crates
+        run: indexer-crates
+      - run: git pull origin ${{ github.ref }}
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "crates: Weekly update"
+
