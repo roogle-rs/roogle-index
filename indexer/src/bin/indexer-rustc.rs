@@ -30,12 +30,9 @@ fn main() -> Result<()> {
             .with_context(|| format!("failed to store `{}.json` to index", krate))?;
     }
 
-    let json = serde_json::to_string(&krates).context("serializing crates of `set:rustc` failed")?;
-    std::fs::write(
-        "../set/rustc.json",
-        &json,
-    )
-    .context("writing content to `rustc.json` failed")?;
+    let json =
+        serde_json::to_string(&krates).context("serializing crates of `set:rustc` failed")?;
+    std::fs::write("../set/rustc.json", &json).context("writing content to `rustc.json` failed")?;
 
     Ok(())
 }
