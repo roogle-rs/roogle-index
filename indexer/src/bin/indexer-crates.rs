@@ -1,7 +1,7 @@
 use std::{env::temp_dir, path::PathBuf};
 
 use anyhow::Result;
-use crates_io_api::{AsyncClient, Crate, CratesResponse, ListOptions, Sort};
+use crates_io_api::{AsyncClient, Crate, CratesPage, CratesQueryBuilder, Sort};
 
 use tokio::{fs::OpenOptions, io::copy, process::Command};
 
@@ -61,13 +61,13 @@ async fn main() -> Result<()> {
         std::time::Duration::from_millis(1000),
     )?;
 
-    let CratesResponse { crates: krates, .. } = client
-        .crates(ListOptions {
-            sort: Sort::Downloads,
-            per_page: 100,
-            page: 1,
-            query: None,
-        })
+    let CratesPage { crates: krates, .. } = client
+        .crates(
+            CratesQueryBuilder::new()
+                .sort(Sort::Downloads)
+                .page_size(100)
+                .build(),
+        )
         .await?;
     let mut json = vec![];
     for krate in krates {
